@@ -2,9 +2,25 @@ import webbrowser
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
+#CREATES LINK TO COLLEGE REFERENCE PAGE FOR EACH ELIGIBLE PLAYER
+def createCollegeLink(name):
+     lowerName = name.lower()
+     fullName = lowerName.split()
+
+     link1 = "https://www.sports-reference.com/cbb/players/"
+     player = fullName[0] + "-" + fullName[1]
+     link2 = "-1.html"
+
+     fullLink = link1 + player + link2
+     return fullLink
+
+
+
 chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
 webbrowser.register('google-chrome', None, webbrowser.BackgroundBrowser(chrome_path))
 
+
+#MAIN FUNCTION
 
 #list of drafted players
 drafts = "https://www.basketball-reference.com/draft/NBA_"
@@ -30,7 +46,10 @@ for x in draftyears:
         if colsNames:
             american = colsUnis.find('csk')
             if colsUnis.string:
-                print(colsNames.string)
+               # print(colsNames.string)
+               colLink = createCollegeLink(colsNames.string)
+               print(colLink,"\n")
+               
 
         #First 30 players taken in the draft: AKA the first round
         if inc == 30:
